@@ -1,7 +1,7 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import TelaCadastro from "./components/TelaCadastro";
+import Habitos from "./components/Habitos";
 import "./App.css";
 
 export default function App() {
@@ -10,6 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadastro" element={<TelaCadastro />} />
+        <Route path="/habitos" element={<Habitos />} />
       </Routes>
     </BrowserRouter>
   );
