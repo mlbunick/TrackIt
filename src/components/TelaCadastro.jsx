@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import IndicadorCarregamento from './LoaderDots';
+import logoHome from '../assets/trackit_logo_home.png';
 
 export default function TelaCadastro() {
   const [email, setEmail] = useState("");
@@ -45,7 +47,7 @@ export default function TelaCadastro() {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Logo src="src/assets/trackit_logo_home.png" alt="TrackIt" />
+        <Logo src={logoHome} alt="TrackIt" />
         <Input
           placeholder="email"
           type="email"
@@ -78,8 +80,6 @@ export default function TelaCadastro() {
           disabled={loading}
           required
         />
-import IndicadorCarregamento from './LoaderDots';
-
         <SubmitButton type="submit" disabled={loading}>
           {loading ? <IndicadorCarregamento color="#fff" size={8} /> : "Cadastrar"}
         </SubmitButton>

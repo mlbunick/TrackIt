@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import IndicadorCarregamento from './LoaderDots';
+import logoHome from '../assets/trackit_logo_home.png';
 
 export default function TelaLogin() {
   const [email, setEmail] = useState("");
@@ -63,7 +64,7 @@ export default function TelaLogin() {
 
   return (
     <HomeContainer>
-      <Logo src="src/assets/trackit_logo_home.png" alt="Logo TrackIt" />
+      <Logo src={logoHome} alt="Logo TrackIt" />
 
       <Form onSubmit={handleSubmit}>
         <CamposInput
