@@ -31,16 +31,17 @@ const Bar = styled.nav`
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1200;
 `;
 
 const Inner = styled.div`
   width: 100%;
   max-width: 375px;
+  margin: 0 auto;
   display: flex;
-  padding: 0;
   background: transparent;
   height: 70px;
+  box-shadow: 0px -1px 4px rgba(0,0,0,0.06);
 `;
 
 const Tab = styled(Link)`

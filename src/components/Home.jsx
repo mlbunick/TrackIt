@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import IndicadorCarregamento from './LoaderDots';
 
-export default function Home() {
+export default function TelaLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -81,7 +82,7 @@ export default function Home() {
           required
           disabled={loading}
         />
-        <LoginButton type="submit" disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}</LoginButton>
+  <LoginButton type="submit" disabled={loading}>{loading ? <IndicadorCarregamento color="#fff" size={8}/> : 'Entrar'}</LoginButton>
       </Form>
 
       <RegisterPrompt>

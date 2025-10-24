@@ -1,17 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
+import React, { useState } from "react";
+import TelaLogin from "./components/Home";
 import TelaCadastro from "./components/TelaCadastro";
-import Habitos from "./components/Habitos";
+import TelaHabitos from "./components/Habitos";
+import TelaHoje from "./components/Hoje";
+import HabitosContext from "./contexts/HabitosContext";
 import "./App.css";
 
 export default function App() {
+  const [listaHabitos, setListaHabitos] = useState([]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cadastro" element={<TelaCadastro />} />
-        <Route path="/habitos" element={<Habitos />} />
-      </Routes>
-    </BrowserRouter>
+    <HabitosContext.Provider value={{ listaHabitos, setListaHabitos }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TelaLogin />} />
+          <Route path="/cadastro" element={<TelaCadastro />} />
+          <Route path="/habitos" element={<TelaHabitos />} />
+          <Route path="/hoje" element={<TelaHoje />} />
+        </Routes>
+      </BrowserRouter>
+    </HabitosContext.Provider>
   );
 }

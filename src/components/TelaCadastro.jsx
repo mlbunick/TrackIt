@@ -78,8 +78,10 @@ export default function TelaCadastro() {
           disabled={loading}
           required
         />
+import IndicadorCarregamento from './LoaderDots';
+
         <SubmitButton type="submit" disabled={loading}>
-          {loading ? "Cadastrando..." : "Cadastrar"}
+          {loading ? <IndicadorCarregamento color="#fff" size={8} /> : "Cadastrar"}
         </SubmitButton>
 
         <Prompt>

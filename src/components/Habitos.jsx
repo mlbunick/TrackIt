@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import BottomBar from "./BottomBar";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TopBar from "./TopBar";
+import IndicadorCarregamento from './LoaderDots';
+import HabitosContext from '../contexts/HabitosContext';
 
-export default function Habitos() {
+export default function TelaHabitos() {
   const [creating, setCreating] = useState(false);
   const [title, setTitle] = useState("");
   const [days, setDays] = useState([]);
@@ -14,6 +16,7 @@ export default function Habitos() {
 
   const [habits, setHabits] = useState([]);
   const [todayHabits, setTodayHabits] = useState([]);
+  const { listaHabitos, setListaHabitos } = useContext(HabitosContext);
   const [loadingHabits, setLoadingHabits] = useState(false);
 
   const toggleDay = (index) => {
@@ -90,7 +93,10 @@ export default function Habitos() {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((r) => r.json())
-      .then((data) => setTodayHabits(data))
+      .then((data) => {
+  setTodayHabits(data);
+  if (typeof setListaHabitos === 'function') setListaHabitos(data);
+      })
       .catch((e) => console.error('Error fetching today habits', e));
   };
 
@@ -144,7 +150,7 @@ export default function Habitos() {
             <Cancel type="button" onClick={() => setCreating(false)} disabled={saving}>
               Cancelar
             </Cancel>
-            <Save type="submit" disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Save>
+            <Save type="submit" disabled={saving}>{saving ? <IndicadorCarregamento color="#fff" size={8}/> : 'Salvar'}</Save>
           </Actions>
         </Card>
       )}
@@ -160,11 +166,11 @@ export default function Habitos() {
           habits.map((h) => (
             <HabitCard key={h.id}>
               <strong>{h.name}</strong>
-              <div>
+              <WeekDays>
                 {weekdays.map((d, i) => (
                   <SmallDay key={i} active={h.days.includes(i)}>{d}</SmallDay>
                 ))}
-              </div>
+              </WeekDays>
             </HabitCard>
           ))
         )}
@@ -183,7 +189,7 @@ export default function Habitos() {
 const Page = styled.div`
   min-height: 100vh;
   padding: 90px 20px 90px;
-  background: #ffffff;
+  background: #F2F2F2;
   font-family: 'Lexend Deca', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 `;
 
@@ -287,25 +293,39 @@ const Section = styled.section`
 `;
 
 const HabitCard = styled.div`
-  background: #f7f7f7;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+`;
+
+const WeekDays = styled.div`
+  display: flex;
+  gap: 2px;
+  margin-top: 12px;
 `;
 
 const SmallDay = styled.span`
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  text-align: center;
-  line-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
   margin-right: 4px;
-  background: ${(p) => (p.active ? '#cfcfcf' : '#fff')};
-  border: 1px solid #d5d5d5;
+  background: ${(p) => (p.active ? '#CFCFCF' : '#ffffff')};
+  color: ${(p) => (p.active ? '#ffffff' : '#BDBDBD')};
+  border: 1px solid ${(p) => (p.active ? '#CFCFCF' : '#e6e6e6')};
+`;
+
+const CardTitle = styled.div`
+  strong { color: #666; display:block; font-size: 16px; }
 `;
 
 const TodayCard = styled(HabitCard)`
