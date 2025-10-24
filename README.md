@@ -52,4 +52,4 @@ npm run dev
 
 ## 🌐 Deploy
 
-Disponível em: https://track-it-seven-sand.vercel.app/
+Disponível em: https://track-it-u8d8.vercel.app/habitos
